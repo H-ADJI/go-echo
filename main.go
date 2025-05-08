@@ -1,18 +1,13 @@
 package main
 
-import (
-	"log"
+const (
+	PORT    = "3000"
+	ADDRESS = "localhost"
 )
 
 func main() {
-	echoSRV := NewTCPServer()
-	defer echoSRV.listener.Close()
-	for {
-		conn, err := echoSRV.listener.Accept()
-		if err != nil {
-			log.Printf("Could not accept connection %s - %s", conn.RemoteAddr(), err)
-			continue
-		}
-		go echoSRV.HandleConn(conn)
-	}
+	echoUDPServer := NewUDPServer()
+	echoTCPServer := NewTCPServer()
+	go echoUDPServer.Start()
+	echoTCPServer.Start()
 }
