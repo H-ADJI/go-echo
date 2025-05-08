@@ -12,18 +12,18 @@ const (
 	PORT     = "3000"
 )
 
-type EchoServer struct {
+type TCPEchoServer struct {
 	listener net.Listener
 }
 
-func NewServer() EchoServer {
+func NewTCPServer() TCPEchoServer {
 	l, err := net.Listen(PROTOCOL, ":"+PORT)
 	if err != nil {
 		log.Fatal("Error creating server", err)
 	}
-	return EchoServer{listener: l}
+	return TCPEchoServer{listener: l}
 }
-func (server EchoServer) HandleConn(conn net.Conn) {
+func (server TCPEchoServer) HandleConn(conn net.Conn) {
 	defer conn.Close()
 	reader := bufio.NewReader(conn)
 	for {

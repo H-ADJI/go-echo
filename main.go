@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	echoSRV := NewServer()
+	echoSRV := NewTCPServer()
 	defer echoSRV.listener.Close()
 	for {
 		conn, err := echoSRV.listener.Accept()
