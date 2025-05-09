@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"strconv"
@@ -30,11 +29,7 @@ func (server UDPEchoServer) Start() {
 		n, addr, err := server.conn.ReadFromUDP(msg)
 		log.Printf("Received message from %s", addr)
 		if err != nil {
-			if err == io.EOF {
-				log.Println("Connection closed by client")
-			} else {
-				log.Println(err)
-			}
+			log.Println("error occured when reading message", err)
 			return
 		}
 		response := fmt.Sprintf("[ECHO-SERVER] %s", msg[:n])
